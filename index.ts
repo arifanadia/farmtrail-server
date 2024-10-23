@@ -3,13 +3,16 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import productsRouter from './routes/ProductsRoutes'
-dotenv.config();  // Load environment variables
+import authRoutes from './routes/AuthRoutes';
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
+    origin: ['http://localhost:3000'],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true
 }));
@@ -41,6 +44,7 @@ async function run() {
 run().catch(console.dir);
 
 // Use the products router
+app.use('/', authRoutes);
 app.use('/', productsRouter);
 
 
@@ -55,3 +59,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Farmtrail is providing organic food on port: ${port}`);
 });
+
+export default app;

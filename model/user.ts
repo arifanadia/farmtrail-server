@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema({
-    userName: {
+    username: {
         type: String,
         required: true,
         minlength : 3
@@ -13,8 +13,6 @@ const userSchema = new Schema({
     },
     password : {
         type : String,
-        required: true,
-        select: false,
         minlength: 6
     },
     createdAt: {
@@ -26,6 +24,10 @@ const userSchema = new Schema({
         enum: ['user', 'admin'],
         default: 'user'
     },
+    photoURL: {
+        type: String,
+        default: null, 
+      },
 })
 
 const User = mongoose.model('User',userSchema);
